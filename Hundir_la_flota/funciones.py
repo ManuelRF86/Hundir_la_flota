@@ -19,7 +19,18 @@ def abrir_imagen():
     im.show()
     time.sleep(3)
             
-
+def crear_flota(barco,tablero,coordenadas):
+    """
+    Esta función consisite en crear una flota de barcos para cada jugador, 
+    la cual, se irá reducuiendo a medida que se vayan hundiendo los barcos
+    """
+    
+    if tablero is tablero_2:
+        
+        flota_usuario[barco]= (coordenadas)
+        
+    else:
+        flota_maquina[barco]= (coordenadas)
 
 def colocar_barco(barco,eslora, tablero):
 
@@ -113,8 +124,44 @@ def crear_barco_aleatorio(lista_barcos, tablero):
                         romper = True  
 
         colocar_barco(barco_aleatorio,eslora,tablero)
-    
+        crear_flota(barco,tablero,barco_aleatorio)
+
     return tablero
+
+def comprobar_disparo(disparo, turno):
+    """
+    En esta función, lo que hacemos es mediante un bucle for, 
+    recorremos cada flota creada y a su vez, las posiciones de cada barco.
+    A medida que se acierta un disparo, se elimina esa posicion de la lista del barco.
+    Cuando la lista del barco, se queda sin posiciones, imprimimos tocado y hundido.
+    """
+
+    estado = ""
+    if turno == 'Usuario':
+        for clave,valor in flota_maquina.items():
+            for i, coordenada in  enumerate(valor):
+                if coordenada == disparo:
+                    flota_maquina[clave] = list(flota_maquina[clave])
+                    flota_maquina[clave].pop(i)
+                    flota_maquina[clave] = tuple(flota_maquina[clave])
+                    if len(flota_maquina[clave]) == 0:
+                        estado = (f"Tocado y hundido!!\n Enorabuena!! Has hundido el {clave}")
+                    else:
+                        estado = "Tocado"
+    else:
+        for clave,valor in flota_usuario.items():
+            for i, coordenada in  enumerate(valor):
+                if coordenada == disparo:
+                    flota_usuario[clave] = list(flota_usuario[clave])
+                    flota_usuario[clave].pop(i)
+                    flota_usuario[clave] = tuple(flota_usuario[clave])
+                    if len(flota_usuario[clave]) == 0:
+                        estado = (f"Tocado y hundido!!\n Vaya!! Han hundido tu {clave}")
+                    else:
+                        estado = "Tocado"
+
+
+    return estado       
 
 
 
@@ -138,8 +185,8 @@ def disparar():
     print(tablero_2)
     time.sleep(5)
     turno = random.choice(["Usuario","Máquina"])
-    vidas_usuario = 4
-    vidas_maquina = 4
+    vidas_usuario = 10
+    vidas_maquina = 10
     while vidas_usuario > 0 and vidas_maquina > 0:
 
         os.system('cls')
@@ -157,7 +204,7 @@ def disparar():
                 casilla = tuple(casilla)
                 if tablero_1[casilla] == " ":
                     print("Agua")
-                    time.sleep(1.5)
+                    time.sleep(2)
                     tablero_1[casilla] = "-"
                     tablero_usuario[casilla] = "-"
                     turno = 'Máquina'
@@ -169,17 +216,18 @@ def disparar():
 
                 else:
                     vidas_maquina = vidas_maquina - 1
-                    print("Tocado!! ")
+                    print(comprobar_disparo(casilla,turno))
                     print(f"Genial {usuario}!! A la flota de {maquina} le quedan {vidas_maquina} aciertos para que la derrotes ")
-                    time.sleep(2.5)
+                    time.sleep(4)
                     tablero_1[casilla] = "X"
                     tablero_usuario[casilla] = "X"
                     turno = 'Usuario'
 
 
+
             else:
                 print(f'{usuario}, ya sabes que ese input no es correcto. Anda vuelve a introducirlo y que no se vuelva a repetir.')
-                time.sleep(2.5)
+                time.sleep(3.5)
                 turno = 'Usuario'
             
                 
@@ -212,9 +260,9 @@ def disparar():
 
             else:
                 vidas_usuario = vidas_usuario - 1
-                print("Tocado!!")
+                print(comprobar_disparo(casilla,turno))
                 print(f"Vaya! {maquina} te ha vuelto a tocar, cuidado que con {vidas_usuario} aciertos de {maquina} mas, habras sido derrotado ")
-                time.sleep(2.5)
+                time.sleep(4)
                 tablero_2[casilla] = "X"
                 tablero_maquina[casilla] = "X" 
                 turno = 'Máquina'       
@@ -227,3 +275,4 @@ def disparar():
         resultado = print(f"Ha ganado {maquina}. Otra vez será \n", tablero_2)
 
     return resultado 
+

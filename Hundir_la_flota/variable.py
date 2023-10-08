@@ -9,3 +9,6 @@ lista_barcos = ['barco_4', 'barco_3_1', 'barco_3_2', 'barco_2_1', 'barco_2_2', '
 
 usuario = Usuarios.crear_usuario('usuario')
 maquina = Usuarios.crear_usuario('maquina')
+
+flota_usuario = {}
+flota_maquina = {}
