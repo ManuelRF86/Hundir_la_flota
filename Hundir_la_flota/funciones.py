@@ -185,8 +185,8 @@ def disparar():
     print(tablero_2)
     time.sleep(5)
     turno = random.choice(["Usuario","Máquina"])
-    vidas_usuario = 10
-    vidas_maquina = 10
+    vidas_usuario = 20
+    vidas_maquina = 20
     while vidas_usuario > 0 and vidas_maquina > 0:
 
         os.system('cls')
