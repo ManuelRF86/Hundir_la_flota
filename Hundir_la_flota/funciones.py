@@ -13,8 +13,8 @@ def abrir_imagen():
     esta función permite abrir una imagen en una ventana emergente
     con la cual, presentamos el juego
     """
-
-    ruta = ("C:\Carpeta trabajos\Manuel\Hundir_la_flota\img\hundir-la-flota-juego-de-mesa.jpg")
+   
+    ruta = ("img\hundir-la-flota-juego-de-mesa.jpg")
     im = Image.open(ruta)
     im.show()
     time.sleep(3)
