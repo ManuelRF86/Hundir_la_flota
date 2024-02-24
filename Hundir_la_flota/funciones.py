@@ -14,7 +14,7 @@ def abrir_imagen():
     con la cual, presentamos el juego
     """
    
-    ruta = ("img\hundir-la-flota-juego-de-mesa.jpg")
+    ruta = ("img/hundir-la-flota-juego-de-mesa.jpg")
     im = Image.open(ruta)
     im.show()
     time.sleep(3)
