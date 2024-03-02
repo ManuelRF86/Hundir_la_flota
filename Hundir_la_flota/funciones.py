@@ -7,17 +7,29 @@ from PIL import Image
 
 from variable import*
 
-def abrir_imagen():
+import os
+from PIL import Image
+import time
 
+import os
+from PIL import Image
+import time
+
+def abrir_imagen():
     """
-    esta función permite abrir una imagen en una ventana emergente
-    con la cual, presentamos el juego
+    Esta función permite abrir una imagen en una ventana emergente
+    con la cual presentamos el juego
     """
-   
-    ruta = ("img/hundir-la-flota-juego-de-mesa.jpg")
-    im = Image.open(ruta)
+    
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+
+    ruta_img = os.path.join(directorio_actual, "img", "hlf.jpg")
+
+    im = Image.open(ruta_img)
     im.show()
     time.sleep(3)
+
+
             
 def crear_flota(barco,tablero,coordenadas):
     """
